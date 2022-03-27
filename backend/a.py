@@ -22,7 +22,7 @@ def gen(camera):
                
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen(VideoCamera()),
+    return Response(gen(VideoCamera(),"sqauts"),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
  
 if __name__ == '__main__':

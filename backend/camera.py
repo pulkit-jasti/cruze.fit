@@ -9,23 +9,24 @@ import posemodule as pm
 class VideoCamera(object):
     def __init__(self):
         self.video = cv2.VideoCapture(0)
+        self.detector = pm.poseDetector()
         print("videocap started")
 
     def __del__(self):
         self.video.release()
 
-    def get_frame(self):
-            #if ex=="sqauts":
+    def get_frame(self,ex):
+            if ex=="sqauts":
                         pTime = 0
-                        detector = pm.poseDetector()
+                        
                         count = 0
 
                         f=0
                         
                         while count < 100000000:
                             ret, img = self.video.read()
-                            img = detector.findPose(img)
-                            lmlist = detector.getPosition(img,draw=False)
+                            img = self.detector.findPose(img)
+                            lmlist = self.detector.getPosition(img,draw=False)
                             
                             # if u want all dots then put draw= true and comment out the cv2.circle part in the if part below
                             
@@ -56,3 +57,45 @@ class VideoCamera(object):
 
                         ret, jpeg = cv2.imencode('.jpg', img)
                         return jpeg.tobytes()
+        
+            elif ex=="push":
+                        count = 0
+
+                        f=0
+                        time.sleep(5)
+                        while True and count<10000:
+                            ret, img = self.video.read()
+                            img = self.detector.findPose(img)
+                            lmlist = self.detector.getPosition(img,draw=False)
+                            #print(lmlist[3])
+                            
+                            if len(lmlist)!=0:
+                                cv2.circle(img,(lmlist[14][1],lmlist[14][2]),10,(0,0,255),cv2.FILLED)
+                                cv2.circle(img,(lmlist[0][1],lmlist[0][2]),10,(0,0,255),cv2.FILLED) 
+                                y1 = lmlist[14][2]
+                                y2 = lmlist[0][2]
+                                
+                                length = y2-y1
+                                if length>=0 and f==0:
+                                    f=1
+                                elif length<-50 and f==1:
+                                    f=0
+                                    count=count+1
+
+
+                                #print(length)
+
+                                cTime = time.time()
+                                fps = 1/(cTime-pTime)
+                                pTime = cTime
+                                cv2.putText(img,"Pushup"+str(int(count)),(70,250),cv2.FONT_HERSHEY_DUPLEX,2,
+                                (60,100,255),2)
+                                cv2.putText(img,"Burnt"+str(int(count)*0.29),(70,350),cv2.FONT_HERSHEY_DUPLEX,2,
+                                (60,100,255),2)
+                                img = cv2.resize(img, (620,650))                    # Resize image
+                                
+                                calories = 0.29*count
+                            ret, jpeg = cv2.imencode('.jpg', img)
+                            return jpeg.tobytes()
+                            
+                      
