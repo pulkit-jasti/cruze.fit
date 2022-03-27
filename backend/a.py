@@ -20,9 +20,21 @@ def gen(camera,ex):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
                
-@app.route('/video_feed')
-def video_feed():
+@app.route('/push')
+def push():
     return Response(gen(VideoCamera(),"push"),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/pull')
+def push():
+    return Response(gen(VideoCamera(),"pull"),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/cru')
+def push():
+    return Response(gen(VideoCamera(),"cru"),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/weight')
+def push():
+    return Response(gen(VideoCamera(),"weight"),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
  
 if __name__ == '__main__':
