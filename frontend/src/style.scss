@@ -28,6 +28,25 @@ main {
   align-items: center;
 }
 
+.primary-modal {
+  .modal-header {
+    padding: 17px 26px 0px 26px;
+    border: none;
+  }
+
+  .modal-content {
+    border: none;
+    border-radius: 25px;
+  }
+
+  img {
+    height: 500px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+}
+
 .card-container {
   display: flex;
   flex-wrap: wrap;

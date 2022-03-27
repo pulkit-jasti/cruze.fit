@@ -10,6 +10,7 @@ import lunges from "./assets/lunges.png";
 import pullup from "./assets/pullup.png";
 import weight from "./assets/weight.png";
 import situps from "./assets/situps.png";
+import earth from "./assets/earth.png";
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
@@ -32,21 +33,20 @@ class App extends Component {
   render() {
     return (
       <main>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} centered>
-          {/* <ModalHeader toggle={this.toggle}>Modal title</ModalHeader> */}
+        <Modal isOpen={this.state.modal} size="lg" toggle={this.toggle} className="primary-modal" centered>
+          <ModalHeader toggle={this.toggle}>Pushups</ModalHeader>
           <ModalBody>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
+            <img src={earth} alt="" />
           </ModalBody>
         </Modal>
 
         <div className="card-container">
           <ExerciseCard img={pushup} title="Pushups" onClick={this.toggle} />
-          <ExerciseCard img={skipping} title="Skipping" />
-          <ExerciseCard img={lunges} title="Lunges" />
-          <ExerciseCard img={pullup} title="Pullup" />
-          <ExerciseCard img={weight} title="Weight Lifting" />
-          <ExerciseCard img={situps} title="Situps" />
+          <ExerciseCard img={skipping} title="Skipping" onClick={this.toggle} />
+          <ExerciseCard img={lunges} title="Lunges" onClick={this.toggle} />
+          <ExerciseCard img={pullup} title="Pullup" onClick={this.toggle} />
+          <ExerciseCard img={weight} title="Weight Lifting" onClick={this.toggle} />
+          <ExerciseCard img={situps} title="Situps" onClick={this.toggle} />
         </div>
       </main>
     );
