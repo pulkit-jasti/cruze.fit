@@ -106,6 +106,7 @@ class VideoCamera(object):
                 ret, img = self.video.read()
                 img = self.detector.findPose(img)
                 lmlist = self.detector.getPosition(img,draw=False)
+                f=0
                 if len(lmlist)!=0:
                     cv2.circle(img,(lmlist[15][1],lmlist[15][2]),10,(0,0,255),cv2.FILLED)
                     cv2.circle(img,(lmlist[3][1],lmlist[3][2]),10,(0,0,255),cv2.FILLED) 
@@ -130,6 +131,7 @@ class VideoCamera(object):
                 ret, img = self.video.read()
                 img = self.detector.findPose(img)
                 lmlist = self.detector.getPosition(img,draw=False)
+                f=0
                 if len(lmlist)!=0:
                                 x1 = lmlist[0][1]
                                 x2 = lmlist[12][1]
@@ -152,6 +154,7 @@ class VideoCamera(object):
                 ret, img = self.video.read()
                 img = self.detector.findPose(img)
                 lmlist = self.detector.getPosition(img,draw=False)
+                f=0
                 if len(lmlist)!=0:
                                 cv2.circle(img,(lmlist[17][1],lmlist[17][2]),20,(0,0,255),cv2.FILLED)
                                 cv2.circle(img,(lmlist[13][1],lmlist[13][2]),20,(0,255,0),cv2.FILLED) 
