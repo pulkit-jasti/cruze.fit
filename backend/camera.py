@@ -16,14 +16,16 @@ class VideoCamera(object):
         self.video.release()
 
     def get_frame(self,ex):
-            if ex=="sqauts":
-                        pTime = 0
+             
+            if ex=="squats":
+                            #print("assssssssssssssssssssss")
+                            pTime = 0
                         
-                        count = 0
+                            count = 0
 
-                        f=0
+                            f=0
                         
-                        while count < 100000000:
+                       # while count < 100000000:
                             ret, img = self.video.read()
                             img = self.detector.findPose(img)
                             lmlist = self.detector.getPosition(img,draw=False)
@@ -51,19 +53,19 @@ class VideoCamera(object):
                                 (60,100,255),3)
                                 cv2.putText(img,"Calories Burnt  "+str(int(count)*0.32),(70,150),cv2.FONT_HERSHEY_DUPLEX,1,
                                 (60,100,255),3)
-                                img = cv2.resize(img, (600,600))                 # Resize image
+                               # img = cv2.resize(img, (600,600))                 # Resize image
                                 
                                 calories = 0.32*count
 
-                        ret, jpeg = cv2.imencode('.jpg', img)
-                        return jpeg.tobytes()
+                            ret, jpeg = cv2.imencode('.jpg', img)
+                            return jpeg.tobytes()
         
             elif ex=="push":
-                        count = 0
+                            count = 0
 
-                        f=0
-                        time.sleep(5)
-                        while True and count<10000:
+                            f=0
+                        #time.sleep(5)
+                       # while True and count<10000:
                             ret, img = self.video.read()
                             img = self.detector.findPose(img)
                             lmlist = self.detector.getPosition(img,draw=False)
@@ -85,14 +87,12 @@ class VideoCamera(object):
 
                                 #print(length)
 
-                                cTime = time.time()
-                                fps = 1/(cTime-pTime)
-                                pTime = cTime
+                            
                                 cv2.putText(img,"Pushup"+str(int(count)),(70,250),cv2.FONT_HERSHEY_DUPLEX,2,
                                 (60,100,255),2)
                                 cv2.putText(img,"Burnt"+str(int(count)*0.29),(70,350),cv2.FONT_HERSHEY_DUPLEX,2,
                                 (60,100,255),2)
-                                img = cv2.resize(img, (620,650))                    # Resize image
+                               # img = cv2.resize(img, (620,650))                    # Resize image
                                 
                                 calories = 0.29*count
                             ret, jpeg = cv2.imencode('.jpg', img)
