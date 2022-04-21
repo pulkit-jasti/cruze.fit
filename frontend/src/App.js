@@ -12,6 +12,8 @@ import weight from "./assets/weight.png";
 import crunches from "./assets/crunches.png";
 import earth from "./assets/earth.png";
 
+import axios from "axios";
+
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 class App extends Component {
@@ -21,11 +23,13 @@ class App extends Component {
       modal: false,
       videoURL: earth,
       exerciseTitle: "Null",
+      calories: 0,
+      count: 0,
     };
   }
 
   toggleModal(data) {
-    console.log("testtttt", data);
+    // console.log("testtttt", data);
 
     if (typeof data == "string") {
       this.setState({
@@ -40,37 +44,55 @@ class App extends Component {
     }
   }
 
+  getExerciseData() {
+    // console.log("test");
+
+    axios
+      .get("http://192.168.10.150:5000/res")
+      .then((res) => {
+        console.log("Response:", res);
+        this.setState({ count: res.data.count, calories: res.data.cal });
+      })
+      .catch((err) => {
+        console.warn("errorrrrrrr", err);
+      });
+  }
+
   render() {
+    setTimeout(() => {
+      this.getExerciseData();
+    }, 3000);
+
     let exerciseData = [
       {
         title: "Crunches",
         imgURL: crunches,
-        videoURL: "http://192.168.0.174:5000/cru",
+        videoURL: "http://192.168.10.150:5000/cru",
       },
       {
         title: "Squats",
         imgURL: squats,
-        videoURL: "http://192.168.0.174:5000/squats",
+        videoURL: "http://192.168.10.150:5000/squats",
       },
       {
         title: "Pushups",
         imgURL: pushup,
-        videoURL: "http://192.168.0.174:5000/push",
+        videoURL: "http://192.168.10.150:5000/push",
       },
       {
         title: "Pullups",
         imgURL: pullup,
-        videoURL: "http://192.168.0.174:5000/pull",
+        videoURL: "http://192.168.10.150:5000/pull",
       },
       {
         title: "Weight Lifting",
         imgURL: weight,
-        videoURL: "http://192.168.0.174:5000/weight",
+        videoURL: "http://192.168.10.150:5000/weight",
       },
       {
         title: "Skipping",
         imgURL: skipping,
-        videoURL: "http://192.168.0.174:5000/squats",
+        videoURL: "http://192.168.10.150:5000/squats",
       },
     ];
 
@@ -86,6 +108,11 @@ class App extends Component {
           <ModalHeader toggle={this.toggleModal.bind(this, "Null")}>{this.state.exerciseTitle}</ModalHeader>
           <ModalBody>
             <img src={this.state.videoURL} alt="" />
+            <div className="exercise-info">
+              Count: {this.state.count}
+              <br />
+              Calories: {this.state.calories}
+            </div>
           </ModalBody>
         </Modal>
 

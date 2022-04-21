@@ -8,15 +8,31 @@ import json
 import numpy as np 
 
 app = Flask(__name__)
-
+count=0
+cal=0
+data=dict({"count":0,"cal":0})
 CORS(app)
 @app.route('/')
 def index():
     return render_template('index.js')
+
+@app.route('/res')
+def res():
     
+    return data
+
 def gen(camera,ex):
+    global count
+    global cal
+    global data
     while True:
-        frame = camera.get_frame(ex)
+        
+        frame,cnt,cal = camera.get_frame(ex)
+        # if count!=cnt:
+        count=cnt
+        data["count"]=count
+        data["cal"]=cal
+
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
                

@@ -21,7 +21,7 @@ class VideoCamera(object):
         self.video.release()
 
     def get_frame(self,ex):
-             
+            calories=1
             if ex=="squats":
                             #print("assssssssssssssssssssss")
                             pTime = 0
@@ -56,16 +56,16 @@ class VideoCamera(object):
                                 cTime = time.time()
                                 fps = 1/(cTime-pTime)
                                 pTime = cTime
-                                cv2.putText(img,"Total Number of Squats  "+str(int(self.cnt_sq)),(70,50),cv2.FONT_HERSHEY_DUPLEX,1,
-                                (60,100,255),3)
-                                cv2.putText(img,"Calories Burnt  "+str(int(int(self.cnt_sq)*0.32)),(70,150),cv2.FONT_HERSHEY_DUPLEX,1,
-                                (60,100,255),3)
+                                #cv2.putText(img,"Total Number of Squats  "+str(int(self.cnt_sq)),(70,50),cv2.FONT_HERSHEY_DUPLEX,1,
+                                #(60,100,255),3)
+                                #cv2.putText(img,"Calories Burnt  "+str(int(int(self.cnt_sq)*0.32)),(70,150),cv2.FONT_HERSHEY_DUPLEX,1,
+                                #(60,100,255),3)
                                # img = cv2.resize(img, (600,600))                 # Resize image
                                 
                                 calories = 0.32*self.cnt_sq
 
                             ret, jpeg = cv2.imencode('.jpg', img)
-                            return jpeg.tobytes()
+                            return jpeg.tobytes(),self.cnt_sq,calories
         
             elif ex=="push":
                             
@@ -95,15 +95,15 @@ class VideoCamera(object):
                                 #print(length)
 
                             
-                                cv2.putText(img,"Pushup"+str(int(self.cnt_sq)),(70,250),cv2.FONT_HERSHEY_DUPLEX,2,
-                                (60,100,255),2)
-                                cv2.putText(img,"Burnt"+str(int(int(self.cnt_sq)*0.29)),(70,350),cv2.FONT_HERSHEY_DUPLEX,2,
-                                (60,100,255),2)
+                                #cv2.putText(img,"Pushup"+str(int(self.cnt_sq)),(70,250),cv2.FONT_HERSHEY_DUPLEX,2,
+                                #(60,100,255),2)
+                                #cv2.putText(img,"Burnt"+str(int(int(self.cnt_sq)*0.29)),(70,350),cv2.FONT_HERSHEY_DUPLEX,2,
+                                #(60,100,255),2)
                                # img = cv2.resize(img, (620,650))                    # Resize image
                                 
                                 calories = 0.29*self.cnt_sq
                             ret, jpeg = cv2.imencode('.jpg', img)
-                            return jpeg.tobytes()
+                            return jpeg.tobytes(),self.cnt_sq,calories
             elif ex=="pull":
                 ret, img = self.video.read()
                 img = self.detector.findPose(img)
@@ -122,13 +122,13 @@ class VideoCamera(object):
                         self.f=0
                         self.cnt_sq=self.cnt_sq+1
 
-                    cv2.putText(img,"Total Number of Pullups  "+str(int(self.cnt_sq)),(70,250),cv2.FONT_HERSHEY_DUPLEX,3,
-                    (60,100,255),3)
-                    cv2.putText(img,"Calories Burnt  "+str(int(int(self.cnt_sq)*1)),(70,350),cv2.FONT_HERSHEY_DUPLEX,3,
-                    (60,100,255),3)
+                    #cv2.putText(img,"Total Number of Pullups  "+str(int(self.cnt_sq)),(70,250),cv2.FONT_HERSHEY_DUPLEX,3,
+                    #(60,100,255),3)
+                    #cv2.putText(img,"Calories Burnt  "+str(int(int(self.cnt_sq)*1)),(70,350),cv2.FONT_HERSHEY_DUPLEX,3,
+                    #(60,100,255),3)
                                         # Resize image
                 ret, jpeg = cv2.imencode('.jpg', img)
-                return jpeg.tobytes()
+                return jpeg.tobytes(),self.cnt_sq,calories
             elif ex=="cru":
                 ret, img = self.video.read()
                 img = self.detector.findPose(img)
@@ -146,12 +146,12 @@ class VideoCamera(object):
                                     self.cnt_sq=self.cnt_sq+1
 
  
-                                cv2.putText(img,"Total Number of Crunches  "+str(int(self.cnt_sq)),(70,50),cv2.FONT_HERSHEY_DUPLEX,1,
-                                (60,100,255),3)
-                                cv2.putText(img,"Calories Burnt  "+str(int((self.cnt_sq)*0.32)),(70,150),cv2.FONT_HERSHEY_DUPLEX,1,
-                                (60,100,255),3)
+                                #cv2.putText(img,"Total Number of Crunches  "+str(int(self.cnt_sq)),(70,50),cv2.FONT_HERSHEY_DUPLEX,1,
+                                #(60,100,255),3)
+                                #cv2.putText(img,"Calories Burnt  "+str(int((self.cnt_sq)*0.32)),(70,150),cv2.FONT_HERSHEY_DUPLEX,1,
+                                #(60,100,255),3)
                 ret, jpeg = cv2.imencode('.jpg', img)
-                return jpeg.tobytes()
+                return jpeg.tobytes(),self.cnt_sq,calories
             elif ex=="weight":
                 ret, img = self.video.read()
                 img = self.detector.findPose(img)
@@ -170,12 +170,12 @@ class VideoCamera(object):
                                     self.f=0
                                     self.cnt_sq=self.cnt_sq+1
 
-                                cv2.putText(img,"Total Number of bicep curls  "+str(int(self.cnt_sq)),(70,50),cv2.FONT_HERSHEY_DUPLEX,1,
-                                (60,100,255),3)
-                                cv2.putText(img,"Calories Burnt  "+str(int(int(self.cnt_sq)*0.32)),(70,150),cv2.FONT_HERSHEY_DUPLEX,1,
-                                (60,100,255),3)
+                                #cv2.putText(img,"Total Number of bicep curls  "+str(int(self.cnt_sq)),(70,50),cv2.FONT_HERSHEY_DUPLEX,1,
+                                #(60,100,255),3)
+                                #cv2.putText(img,"Calories Burnt  "+str(int(int(self.cnt_sq)*0.32)),(70,150),cv2.FONT_HERSHEY_DUPLEX,1,
+                                #(60,100,255),3)
                 ret, jpeg = cv2.imencode('.jpg', img)
-                return jpeg.tobytes()
+                return jpeg.tobytes(),self.cnt_sq,calories
 
 
 
